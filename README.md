@@ -23,9 +23,10 @@ The following binary network packet capture formats are supported:
 * PowerShell 7+ (`pwsh.exe`) - will not run under Windows PowerShell 5.1
 
 ## Usage ##
+```
 .\NTLMRawUnHide.ps1 -i <inputfile> [-o <outputfile>] [-f] [-q] [-v]
-
-
+```
+```
 Main options:
 -f, -Follow                Continuously "follow" (e.g. "read from")
 input file for new data
@@ -36,45 +37,57 @@ input file for new data
 and all status messages. Overrides -v.
 -v, -VerboseOutput         Show field-level detail: offsets, lengths,
 raw parsed values
-
+```
 
 
 ## Examples ##
 
 Extract NTLMv2 hashes from capture.pcapng:
 
-.\NTLMRawUnHide.ps1 -i capture.pcapng
+```
+.\NTLMRawUnHide.ps1 -i capture.pcapng`
+```
+
 Same, but with verbose output:
-
-
+```
 .\NTLMRawUnHide.ps1 -i capture.pcapng -v
-Extract hashes and continue monitoring the file for new data (like tail -f):
+```
 
-
+Extract hashes and continue monitoring the file for new data (like tail -f): 
+```
 .\NTLMRawUnHide.ps1 -i capture.pcapng -f
-Extract hashes and write them to a file:
+```
 
-
+Extract hashes and write them to a file: 
+```
 .\NTLMRawUnHide.ps1 -i capture.pcapng -o hashes.txt
-Quiet mode - hash output only, no banner (useful for piping):
+```
 
+Quiet mode - hash output only, no banner (useful for piping): 
 
+```
 .\NTLMRawUnHide.ps1 -i capture.pcapng -q
+```
 Packet Capture Methods
+
 Any of the following methods can be used to create a compatible capture file:
 
 Wireshark:
 
 Set capture filter as "tcp port 445"; Save as .pcapng
 tcpdump:
-
+```
 tcpdump -i eth0 -w capture.pcap "port 445"
-NETSH.EXE:
+```
 
+NETSH.EXE:
+```
 netsh.exe trace start persistent=yes capture=yes TCP.AnyPort=445 tracefile=C:\Users\Public\capture.etl
 netsh.exe trace stop
-PKTMON.EXE:
+```
 
+PKTMON.EXE:
+```
 pktmon.exe filter add SMB -p 445
 :: List all filters
 pktmon.exe filter list
@@ -86,6 +99,8 @@ pktmon.exe start --etw -p 0 -c 9
 pktmon.exe stop
 :: Cleanup
 pktmon.exe filter remove
+```
+
 License
 This project is licensed under the MIT License in accordance with the original tool.
 See LICENSE for details.
